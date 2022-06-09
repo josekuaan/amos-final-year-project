@@ -53,7 +53,7 @@ const Login = () => {
 
     try {
       var response = await fetch(
-        "http://localhost:3000/api/user/auth/login",
+        `${BASE_URL}/api/user/auth/login`,
         options
       ).then((respo) => respo.json());
 
