@@ -16,6 +16,11 @@ const RecordSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  file: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   prize: {
     type: Number,
     required: true,
