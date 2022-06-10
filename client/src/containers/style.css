@@ -11,3 +11,10 @@
   background: none;
   border-bottom: none;
 }
+
+.c-sidebar .c-sidebar-nav-link, .c-sidebar .c-sidebar-nav-dropdown-toggle{
+  color: #3c4b64 !important;
+}
+.c-sidebar .c-sidebar-nav-link.c-active, .c-sidebar .c-active.c-sidebar-nav-dropdown-toggle{
+  color: #3c4b64;
+}

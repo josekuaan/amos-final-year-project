@@ -23,13 +23,21 @@ const TheSidebar = () => {
   return (
     <CSidebar
       show={show}
+      style={{
+        color: "#3c4b64",
+        backgroundColor: "#fff",
+      }}
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
       <div>
         <CSidebarBrand
           className="d-md-down"
           to="/dashboard/admin/create-product"
-          style={{ padding: "20px", justifyContent: "left" }}
+          style={{
+            padding: "20px",
+            justifyContent: "left",
+            backgroundColor: "#fff",
+          }}
         >
           <img
             src={logo}
@@ -39,7 +47,11 @@ const TheSidebar = () => {
           />
         </CSidebarBrand>
       </div>
-      <CSidebarNav>
+      <CSidebarNav
+        style={{
+          color: "#3c4b64",
+        }}
+      >
         <CCreateElement
           items={navigation}
           components={{

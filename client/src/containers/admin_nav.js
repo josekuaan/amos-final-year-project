@@ -67,6 +67,7 @@ const admin_nav = [
         viewBox="0 0 512 512"
         className="c-icon c-icon-2xl c-sidebar-nav-icon"
         role="img"
+        style={{ color: "#3c4b64" }}
       >
         <path
           fill="var(--ci-primary-color, currentColor)"
@@ -91,6 +92,7 @@ const admin_nav = [
         viewBox="0 0 512 512"
         className="c-icon c-icon-2xl c-sidebar-nav-icon"
         role="img"
+        style={{ color: "#3c4b64" }}
       >
         <path
           fill="var(--ci-primary-color, currentColor)"
@@ -112,7 +114,7 @@ const admin_nav = [
     icon: (
       <i
         className="fas fa-chart-line c-sidebar-nav-icon"
-        style={{ fontSize: "27px" }}
+        style={{ fontSize: "27px", color: "#3c4b64" }}
       ></i>
     ),
   },
@@ -124,7 +126,7 @@ const admin_nav = [
     icon: (
       <i
         className="fa fa-indent c-sidebar-nav-icon"
-        style={{ fontSize: "27px" }}
+        style={{ fontSize: "27px", color: "#3c4b64" }}
       ></i>
     ),
   },
