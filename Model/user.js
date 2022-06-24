@@ -31,7 +31,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
     trim: true,
     select: false,
-    minlength: 6,
   },
   createdAt: {
     type: Date,
