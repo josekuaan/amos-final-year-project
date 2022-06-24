@@ -48,11 +48,6 @@ exports.register = async (req, res) => {
     return res
       .status(400)
       .json({ success: false, msg: "User with this email already exist" });
-  user = await User.findOne({ shop: req.body.shop });
-  if (user)
-    return res
-      .status(400)
-      .json({ success: false, msg: "This Shop already exist" });
 
   user = await User.create(req.body);
   sendTokenResponse(user, 200, res);
@@ -82,7 +77,7 @@ exports.login = async (req, res) => {
   if (user == null)
     return res
       .status(400)
-      .json({ success: false, msg: "No such user Exist in our Database" });
+      .json({ success: false, msg: "No such user in our Database" });
   if (!user)
     return res
       .status(400)
