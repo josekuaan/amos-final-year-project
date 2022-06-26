@@ -203,41 +203,10 @@ exports.createInventory = async (req, res) => {
 exports.checkout = async (req, res) => {
   req.body.user = req.user.fullName;
   req.body.userId = req.user._id;
-  req.body.shop = req.user.shop;
-  req.body.convertedqty = Number(req.body.qty) === 0.5 ? 1 : req.body.qty;
 
-  const inventory = await Inventory.find({
-    shop: req.body.shop,
-    type: req.body.type,
-  });
+  let sale = await Sale.create(req.body);
 
-  if (inventory.length !== 0) {
-    for (var i = 0; i < inventory.length; i++) {
-      if (inventory[i].qty == 0) {
-        return res.status(401).json({
-          success: false,
-          msg: `You have run of stock :).`,
-        });
-      }
-
-      let inv = await Inventory.findOneAndUpdate(
-        { _id: inventory[i]._id },
-        { qty: inventory[i].qty - req.body.qty },
-        { new: true, runValidators: true }
-      );
-
-      // console.log(inv);
-
-      let sale = await Sale.create(req.body);
-
-      res.status(200).json({ success: true, sale });
-    }
-  } else {
-    return res.status(401).json({
-      success: false,
-      msg: `You can not sale this Item because it has not been created for your shop`,
-    });
-  }
+  res.status(200).json({ success: true, sale });
 };
 
 //@desc    Get update user

@@ -594,7 +594,8 @@ video Area End
 }
 
 thead {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(60, 75, 100);
+    color: white;
   border-radius: 5px;
 }
 
@@ -602,11 +603,14 @@ thead {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
 }
+.table-bordered th, .table-bordered td{
+  border: none !important;
+}
 
-.table-bordered td,
+/* .table-bordered td,
 .table-bordered th {
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
+} */
 .table-bordered th {
   line-height: 35px;
 }

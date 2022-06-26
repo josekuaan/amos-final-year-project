@@ -5,7 +5,7 @@ const {
   createCategory,
   createInventory,
   getSingleInventory,
-  updateSale,
+  checkout,
   updateInventory,
   deleteInventory,
 } = require("../controller/inventory");
@@ -19,7 +19,7 @@ Router.route("/create-inventory").post(
   createInventory
 );
 
-// Router.route("/get-sales").get(protect, getAllSales);
+Router.route("/checkout").post(protect, checkout);
 // Router.route("/get-sale-id/:id").get(protect, getSaleId);
 Router.route("/get-single-inventory/:id").get(
   protect,

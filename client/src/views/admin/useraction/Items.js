@@ -140,9 +140,10 @@ export default function Items({ loading, inventory }) {
             <td>{invent.type}</td>
             <td>{invent.prize}</td>
             <td>
-              <Image cloudName="demo" publicId={invent.filePublicId}>
+              {/* <Image cloudName="demo" publicId=>
                 <Transformation crop="scale" width="200" angle="10" />
-              </Image>
+              </Image> */}
+              <img src={invent.file} alt="product" width={60} />
             </td>
 
             <td style={{ width: "17%" }}>

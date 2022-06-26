@@ -145,10 +145,11 @@ export default function Items({ loading, sale }) {
           <tr key={index}>
             <td>{index + 1}</td>
             <td>{invent.qty}</td>
-            <td>{invent.category}</td>
-            <td>{invent.type}</td>
+            <td>{invent.title}</td>
+
             <td>{invent.payment}</td>
             <td>{invent.prize}</td>
+            <td>{invent.file}</td>
             <td>
               {" "}
               {`NGN${
