@@ -6,6 +6,9 @@ const RecordSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  refId: {
+    type: String,
+  },
   title: {
     type: String,
     required: true,

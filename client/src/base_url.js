@@ -1,4 +1,4 @@
-const BASE_URL = "https://amos-project.herokuapp.com";
+const BASE_URL = "http://localhost:5000"; //"https://amos-project.herokuapp.com";
 
 export default BASE_URL;
 

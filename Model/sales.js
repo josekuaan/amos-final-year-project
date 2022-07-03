@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 
 const SalesSchema = new mongoose.Schema({
   sales: {
-    type: Array,
+    type: [{}],
     required: true,
     trim: true,
   },
-
+  paymentType: {
+    type: String,
+    default: "ETH",
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -14,4 +17,4 @@ const SalesSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("sales", SalesSchema);
+module.exports = mongoose.model("checkouts", SalesSchema);

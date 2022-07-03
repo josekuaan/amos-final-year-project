@@ -2,12 +2,13 @@ const express = require("express");
 
 const {
   getAllInventory,
-  createCategory,
+  getAllSales,
   createInventory,
   getSingleInventory,
   checkout,
   updateInventory,
   deleteInventory,
+  deleteSale,
 } = require("../controller/inventory");
 const { protect, authorize } = require("../middleWare/auth");
 
@@ -28,13 +29,12 @@ Router.route("/get-single-inventory/:id").get(
 );
 // protect,
 Router.route("/get-inventories").get(getAllInventory);
+Router.route("/get-sales").get(getAllSales);
 Router.route("/update-inventory/:id").put(
   protect,
   authorize("admin"),
   updateInventory
 );
-
-// Router.route("/update-sale/:id").put(protect, authorize("admin"), updateSale);
 
 Router.delete(
   "/delete-user-inventory/:id",
@@ -43,6 +43,6 @@ Router.delete(
   deleteInventory
 );
 
-// Router.delete("/delete-user-sale/:id", protect, authorize("admin"), deleteSale);
+Router.delete("/delete-user-sale/:id", protect, authorize("admin"), deleteSale);
 
 module.exports = Router;

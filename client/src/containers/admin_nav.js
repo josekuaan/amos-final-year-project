@@ -118,18 +118,6 @@ const admin_nav = [
       ></i>
     ),
   },
-
-  {
-    _tag: "CSidebarNavItem",
-    name: "Restock Items",
-    to: "/dashboard/admin/restock",
-    icon: (
-      <i
-        className="fa fa-indent c-sidebar-nav-icon"
-        style={{ fontSize: "27px", color: "#3c4b64" }}
-      ></i>
-    ),
-  },
 ];
 
 export default admin_nav;

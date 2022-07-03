@@ -10,8 +10,6 @@ import LogPage from "./views/user/sale/Log";
 import Sales from "./views/admin/sales/Log";
 import UserAction from "./views/admin/useraction/Log";
 import Create from "./views/admin/useraction/Create";
-import Return from "./views/admin/useraction/Return";
-import Retstock from "./views/admin/useraction/Restock";
 import AdminProfile from "./views/admin/profile/Content";
 
 const routes = [
@@ -38,18 +36,7 @@ const routes = [
     component: Sales,
     exact: true,
   },
-  {
-    path: "/dashboard/admin/return-item",
-    name: "Returned Item",
-    component: Return,
-    exact: true,
-  },
-  {
-    path: "/dashboard/admin/restock",
-    name: "Returned Item",
-    component: Retstock,
-    exact: true,
-  },
+
   {
     path: "/dashboard/admin/product-catlog",
     name: "Products",

@@ -30,11 +30,14 @@ export default function Log() {
       Authorization: `Bearer ${token}`,
     },
   };
-  useEffect(async () => {
+  useEffect(() => {
+    asyncCall();
+  }, []);
+  const asyncCall = () => {
     setloading(true);
     fetchData();
     setloading(false);
-  }, []);
+  };
   const fetchData = async () => {
     axios
       .get(`${BASE_URL}/api/user/auth/get-users`, config)
@@ -55,39 +58,6 @@ export default function Log() {
       });
   };
 
-  const onValueChange = (e) => {
-    const { value } = e.target;
-    setAgent(value);
-    if (value === "alluser") {
-      setSaleCopy();
-      setSaleCopy(sale);
-    } else {
-      let saleId = sale.slice().filter((sal) => sal.userId === value);
-      setActive(saleId);
-      setSaleCopy(saleId);
-    }
-  };
-
-  const search = (e) => {
-    e.preventDefault();
-    axios
-      .get(
-        `${BASE_URL}/api/inventory/get-sales?startdate=${startDate}&&endDate=${endDate}
-        `,
-
-        config
-      )
-      .then(function (response) {
-        if (response.data.success) {
-          setSale(response.data.sale);
-          setSaleCopy(response.data.sale);
-        }
-      });
-
-    if (startDate == "" && endDate == "") {
-      fetchData();
-    }
-  };
   const handleChange = (e) => {
     const { value } = e.target;
 
@@ -97,8 +67,6 @@ export default function Log() {
       );
 
       setSaleCopy(result);
-    } else if (agent === "alluser") {
-      setSaleCopy(sale);
     } else if (value === "" && saleCopy.length <= sale.length) {
       setSaleCopy(active);
     } else if (value === "") {
@@ -107,18 +75,6 @@ export default function Log() {
       let result = sale.filter((item) =>
         item.category.startsWith(value.toUpperCase())
       );
-      setSaleCopy(result);
-    }
-  };
-
-  const handleTypeChange = (e) => {
-    const { value } = e.target;
-
-    let result = saleCopy.filter((item) => item.type.startsWith(value));
-
-    if (value.length === 0) {
-      setSaleCopy(active);
-    } else {
       setSaleCopy(result);
     }
   };
@@ -140,77 +96,16 @@ export default function Log() {
     <div className="row">
       <div className="col-md-12">
         <div className="card">
-          <div className="card-header">
-            <div className="card-head-content">
-              <h3 className="card-title">Sales</h3>
-              <select
-                className="form-control choose-user"
-                onChange={onValueChange}
-              >
-                <option value="alluser">All users</option>
-                {users.map((user, index) => {
-                  return (
-                    <option key={index} value={user._id}>
-                      {user.fullName}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-          </div>
-          <br />
-          <br />
-
           <div style={{ padding: " 1.25rem" }}>
             <div className="row" style={{ marginBottom: "10px" }}>
               <div className="col-sm-3">
-                Start Date:
-                <div className="input-group">
-                  <input
-                    type="date"
-                    className="form-control"
-                    required
-                    onChange={(e) => setStartdate(e.target.value)}
-                  />
-                  <span className="input-group-addon"></span>
-                </div>
-              </div>
-              <div className="col-sm-3">
-                End Date:
-                <div className="input-group">
-                  <input
-                    type="date"
-                    className="form-control"
-                    required
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                  <span className="input-group-addon"></span>{" "}
-                  <Link to=".." className="search-by-date" onClick={search}>
-                    Search
-                  </Link>
-                </div>
-              </div>
-              <div className="col-sm-3">
                 <br />
                 <div className="input-group">
                   <input
                     type="text"
                     className="form-control "
-                    placeholder="Search by name"
+                    placeholder="Search by title"
                     onChange={handleChange}
-                    required
-                  />
-                  <span className="input-group-addon"></span>
-                </div>
-              </div>
-              <div className="col-sm-3">
-                <br />
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control "
-                    placeholder="Search by type"
-                    onChange={handleTypeChange}
                     required
                   />
                   <span className="input-group-addon"></span>
@@ -243,7 +138,6 @@ export default function Log() {
                       <p style={{ textAlign: "center" }}>
                         You Don't have any Transaction yet
                       </p>
-                      <Link to="/dashboard/user/sale">Add to cart</Link>
                     </td>
                   </tr>
                 </tbody>
@@ -258,12 +152,12 @@ export default function Log() {
                   <thead>
                     <tr>
                       <th>S/N</th>
+                      <th>IMAGE</th>
+                      <th>TITLE</th>
                       <th>QTY</th>
-                      <th>CATEGORY</th>
-                      <th>TYPE</th>
-                      <th>Payment</th>
-                      <th>PRICE</th>
-                      <th>TOTAL</th>
+                      <th>PAYMENTType</th>
+                      <th>PRICE(NGN)</th>
+                      <th>TOTAL(NGN)</th>
                       <th>DATE</th>
                       <th>ACTION</th>
                     </tr>

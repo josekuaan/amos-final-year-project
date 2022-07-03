@@ -21,8 +21,7 @@ export default function Items({ loading, inventory }) {
   const [prize, setPrize] = useState(20);
   const [qty, setQty] = useState(10);
   const [type, setType] = useState("type");
-  const [category, setCategory] = useState("");
-  const [createdAt, setDate] = useState("");
+  const [title, setTitle] = useState("");
   const [id, setId] = useState(0);
   const [modal, setModal] = useState(false);
 
@@ -75,10 +74,8 @@ export default function Items({ loading, inventory }) {
           setType(response.data.inventory.type);
           setQty(response.data.inventory.qty);
           setPrize(response.data.inventory.prize);
-          setCategory(response.data.inventory.title);
-          setDate(
-            moment(response.data.inventory.createdAt).format("DD/MM/YYYY")
-          );
+          setTitle(response.data.inventory.title);
+
           setId(response.data.inventory._id);
         }
       });
@@ -87,7 +84,7 @@ export default function Items({ loading, inventory }) {
     event.preventDefault();
     setModal(false);
 
-    const data = { category, type, qty, prize, createdAt };
+    const data = { title, type, qty, prize };
 
     axios({
       method: "put",
@@ -136,15 +133,13 @@ export default function Items({ loading, inventory }) {
         return (
           <tr key={index}>
             <td>{index + 1}</td>
+            <td>
+              <img src={invent.file} alt="product" width={60} />
+            </td>
+            <td>{invent.title}</td>
             <td>{invent.qty}</td>
             <td>{invent.type}</td>
             <td>{invent.prize}</td>
-            <td>
-              {/* <Image cloudName="demo" publicId=>
-                <Transformation crop="scale" width="200" angle="10" />
-              </Image> */}
-              <img src={invent.file} alt="product" width={60} />
-            </td>
 
             <td style={{ width: "17%" }}>
               <span
@@ -186,8 +181,8 @@ export default function Items({ loading, inventory }) {
                 <input
                   type="text"
                   className="form-control"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value.toLowerCase())}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value.toLowerCase())}
                   required
                 />
                 <span className="input-group-addon"></span>

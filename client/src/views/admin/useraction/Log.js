@@ -48,45 +48,11 @@ export default function Log() {
       .get(`${BASE_URL}/api/inventory/get-inventories`, config)
       .then(function (response) {
         if (response.data.success) {
+          console.log(response.data.inventory);
           setInventory(response.data.inventory);
           setCurrentInvent(response.data.inventory);
         }
       });
-  };
-  const onValueChange = (e) => {
-    const { value } = e.target;
-    setAgent(value);
-    if (value === "alluser") {
-      setCurrentInvent();
-      setCurrentInvent(inventory);
-    } else {
-      let inventoryId = inventory
-        .slice()
-        .filter((invent) => invent.shop === value);
-      setActive(inventoryId);
-      setCurrentInvent(inventoryId);
-    }
-  };
-
-  const search = (e) => {
-    e.preventDefault();
-    axios
-      .get(
-        `${BASE_URL}/api/inventory/get-inventories?startdate=${startDate}&&endDate=${endDate}
-        `,
-
-        config
-      )
-      .then(function (response) {
-        if (response.data.success) {
-          setInventory(response.data.inventory);
-          setCurrentInvent(response.data.inventory);
-        }
-      });
-
-    if (startDate == "" && endDate == "") {
-      fetchData();
-    }
   };
 
   const handleChange = (e) => {
@@ -98,24 +64,12 @@ export default function Log() {
       );
 
       setCurrentInvent(result);
-    } else if (agent === "alluser") {
-      setCurrentInvent(inventory);
     } else if (value === "" && currentInvent.length <= inventory.length) {
       setCurrentInvent(active);
     } else {
       let result = inventory.filter((item) =>
         item.category.startsWith(value.toUpperCase())
       );
-      setCurrentInvent(result);
-    }
-  };
-  const handleTypeChange = (e) => {
-    const { value } = e.target;
-
-    let result = currentInvent.filter((item) => item.type.startsWith(value));
-    if (value.length === 0) {
-      setCurrentInvent(active);
-    } else {
       setCurrentInvent(result);
     }
   };
@@ -187,12 +141,14 @@ export default function Log() {
                   <thead>
                     <tr>
                       <th>S/N</th>
+                      <th>Thumbnail</th>
+                      <th>Title</th>
                       <th>Qty</th>
 
                       <th>Type</th>
 
                       <th>Price</th>
-                      <th>Thumbnail</th>
+
                       <th>Action</th>
                     </tr>
                   </thead>

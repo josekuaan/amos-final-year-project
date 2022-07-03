@@ -71,24 +71,6 @@ export default function Items({ loading, sale }) {
     });
   };
 
-  const fetchData = async (id) => {
-    axios
-      .get(`${BASE_URL}/api/inventory/get-sale-id/${id}`, config)
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.success) {
-          setType(response.data.sale.type);
-          setQty(response.data.sale.qty);
-          setPrize(response.data.sale.prize);
-          setCategory(response.data.sale.category);
-          setPayment(response.data.sale.payment);
-          setId(response.data.sale._id);
-          setTime(response.data.sale.createdAt);
-          setShop(response.data.sale.shop);
-          setDetails(response.data.sale.detail);
-        }
-      });
-  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setModal(false);
@@ -140,178 +122,38 @@ export default function Items({ loading, sale }) {
 
   return (
     <>
-      {sale.map((invent, index) => {
-        return (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{invent.qty}</td>
-            <td>{invent.title}</td>
+      {sale.map((invent, _) =>
+        invent.sales.map((sale, index) => {
+          return (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>
+                <img src={sale.file} alt="sale" width={60} />
+              </td>
+              <td>{sale.title}</td>
+              <td>{sale.qty}</td>
 
-            <td>{invent.payment}</td>
-            <td>{invent.prize}</td>
-            <td>{invent.file}</td>
-            <td>
-              {" "}
-              {`NGN${
-                invent.qty === 0.5
-                  ? invent.prize * parseInt(invent.qty.toFixed())
-                  : invent.prize * invent.qty
-              }`}
-            </td>
-            <td>{invent.date}</td>
+              <td>{invent.paymentType}</td>
+              <td>{sale.prize}</td>
+              <td>{sale.prize * sale.qty}</td>
 
-            <td style={{ width: "17%" }}>
-              <span
-                rel="tooltip"
-                title="view item"
-                onClick={() => {
-                  fetchData(invent.id);
-                  setModalView(!modalView);
-                }}
-                className="view-btn"
-              >
-                View
-              </span>
-              <span
-                rel="tooltip"
-                title="edit item"
-                onClick={() => {
-                  fetchData(invent.id);
-                  setModal(!modal);
-                }}
-                className="edit-btn"
-              >
-                Edit
-              </span>
-              <span
-                to="#"
-                rel="tooltip"
-                title="delete item"
-                className="del-btn"
-                onClick={handleDelete(invent.id)}
-              >
-                Delete
-              </span>
-            </td>
-          </tr>
-        );
-      })}
-      <CModal show={modalView} onClose={() => setModalView()}>
-        <CModalHeader closeButton>
-          <CModalTitle>Edit Item</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <div className="row">
-            <div className="col-sm-6">
-              <div>Qty: {qty}</div>
-              <div>Category: {category.toUpperCase()}</div>
-              <div>Type: {type.toUpperCase()}</div>
-              <div>price: {prize}</div>
-              <div>Date: {moment(time).format("MMMM Do YYYY, h:mm:ss a")}</div>
-              <div>Payment: {payment.toUpperCase()}</div>
-              <div>Shop: {shop}</div>
-              <div>Details: {detail.toUpperCase()}</div>
-            </div>
-          </div>
-        </CModalBody>
-      </CModal>
-      <CModal show={modal} onClose={() => setModal()}>
-        <CModalHeader closeButton>
-          <CModalTitle>Edit Item</CModalTitle>
-        </CModalHeader>
-        <CModalBody>
-          <div className="row">
-            <div className="col-sm-6">
-              Category:
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value.toLowerCase())}
-                  required
-                />
-                <span className="input-group-addon"></span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              Type:
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={type}
-                  onChange={(e) => setType(e.target.value.toLowerCase())}
-                  required
-                />
-                <span className="input-group-addon"></span>
-              </div>
-            </div>
-          </div>
+              <td>{moment(invent.date).format("MMMM Do YYYY")}</td>
 
-          <div className="row">
-            <div className="col-sm-6">
-              Qty:
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={qty}
-                  onChange={(e) => setQty(e.target.value)}
-                  required
-                />
-                <span className="input-group-addon"></span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              Price:
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={prize}
-                  onChange={(e) => setPrize(e.target.value)}
-                  required
-                />
-                <span className="input-group-addon"></span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              Payment Type:
-              <div className="input-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  value={payment}
-                  onChange={(e) => setPayment(e.target.value.toLowerCase())}
-                  required
-                />
-                <span className="input-group-addon"></span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              Set Date:
-              <div className="input-group">
-                <input
-                  type="date"
-                  className="form-control"
-                  required
-                  onChange={(e) => setDate(new Date(e.target.value))}
-                />
-                <span className="input-group-addon"></span>
-              </div>
-            </div>
-          </div>
-        </CModalBody>
-        <CModalFooter>
-          <CButton color="primary" onClick={handleSubmit}>
-            Edit
-          </CButton>{" "}
-          <CButton color="secondary" onClick={() => setModal(false)}>
-            Cancel
-          </CButton>
-        </CModalFooter>
-      </CModal>
+              <td style={{ width: "17%" }}>
+                <span
+                  to="#"
+                  rel="tooltip"
+                  title="delete item"
+                  className="del-btn"
+                  onClick={handleDelete(invent._id)}
+                >
+                  Delete
+                </span>
+              </td>
+            </tr>
+          );
+        })
+      )}
     </>
   );
 }
